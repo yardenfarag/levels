@@ -1,13 +1,17 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production'
+
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
   images: {
     unoptimized: true
   },
-  // Configure for GitHub Pages deployment
-  basePath: '/levels',
-  assetPrefix: '/levels/',
+  // Only use basePath in production (for GitHub Pages)
+  ...(isProd && {
+    basePath: '/levels',
+    assetPrefix: '/levels/',
+  }),
 }
 
 module.exports = nextConfig
