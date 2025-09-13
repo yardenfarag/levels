@@ -64,20 +64,13 @@ export default function LoginPage() {
               <div className="flex items-center gap-3">
                 <div className="text-right">
                   <div className="font-medium">{user.name}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {user.role === 'trainee' && 'מתלמדת'}
-                    {user.role === 'instructor' && 'מדריכה'}
-                    {user.role === 'admin' && 'אדמין'}
-                  </div>
+                 
                 </div>
               </div>
               <RoleBadge role={user.role} />
             </Button>
           ))}
-          
-          <div className="mt-6 p-3 bg-muted/50 rounded-lg text-sm text-center text-muted-foreground">
-            <strong>דמו:</strong> הנתונים נשמרים בדפדפן בלבד
-          </div>
+        
         </CardContent>
       </Card>
     </div>
