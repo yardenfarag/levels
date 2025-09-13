@@ -84,11 +84,11 @@ export function TaskTable({
         <div id="task-table" className="overflow-x-auto">
           <div className="min-w-full">
             {/* Header */}
-            <div className="grid grid-cols-3 sm:grid-cols-12 gap-2 sm:gap-2 p-3 sm:p-3 bg-muted/50 rounded-lg text-xs sm:text-sm font-medium mb-3">
+            <div className="grid grid-cols-4 sm:grid-cols-12 gap-1 sm:gap-2 p-3 sm:p-3 bg-muted/50 rounded-lg text-xs sm:text-sm font-medium mb-3">
               <div className="col-span-2 sm:col-span-3 text-right">משימה</div>
               <div className="col-span-1 sm:col-span-2 text-center hidden sm:block">קטגוריה</div>
               <div className="col-span-1 sm:col-span-2 text-center hidden sm:block">שלב/פרק זמן</div>
-              <div className="col-span-1 sm:col-span-2 text-center">סטטוס</div>
+              <div className="col-span-2 sm:col-span-2 text-center">סטטוס</div>
               <div className="col-span-1 sm:col-span-2 text-right hidden sm:block">הערות</div>
               <div className="col-span-1 sm:col-span-1 text-center hidden sm:block">מתלמדת</div>
             </div>
@@ -106,11 +106,11 @@ export function TaskTable({
                   // Show task without assignment for instructors
                   if (currentUser?.role === 'instructor' || currentUser?.role === 'admin') {
                     return (
-                      <div key={task.id} className="grid grid-cols-3 sm:grid-cols-12 gap-2 sm:gap-2 p-3 sm:p-3 border-b text-xs sm:text-sm mb-2 sm:mb-0">
+                      <div key={task.id} className="grid grid-cols-4 sm:grid-cols-12 gap-1 sm:gap-2 p-3 sm:p-3 border-b text-xs sm:text-sm mb-2 sm:mb-0">
                         <div className="col-span-2 sm:col-span-3 text-right">{task.title}</div>
                         <div className="col-span-1 sm:col-span-2 text-center hidden sm:block">{task.category}</div>
                         <div className="col-span-1 sm:col-span-2 text-center hidden sm:block">{task.targetWindow}</div>
-                        <div className="col-span-1 sm:col-span-2 text-center text-muted-foreground">-</div>
+                        <div className="col-span-2 sm:col-span-2 text-center text-muted-foreground">-</div>
                         <div className="col-span-1 sm:col-span-2 text-right text-muted-foreground hidden sm:block">-</div>
                         <div className="col-span-1 sm:col-span-1 text-center text-muted-foreground hidden sm:block">-</div>
                       </div>
@@ -133,16 +133,16 @@ export function TaskTable({
                   };
 
                   return (
-                    <div key={assignment.id} className={`grid grid-cols-3 sm:grid-cols-12 gap-2 sm:gap-2 p-3 sm:p-3 border-b text-xs sm:text-sm transition-colors mb-2 sm:mb-0 ${getRowBgColor(assignment.status)}`}>
-                      <div className="col-span-2 sm:col-span-3 text-right">
+                    <div key={assignment.id} className={`grid grid-cols-5 sm:grid-cols-12 gap-1 sm:gap-2 p-3 sm:p-3 border-b text-xs sm:text-sm transition-colors mb-2 sm:mb-0 ${getRowBgColor(assignment.status)}`}>
+                      <div className="col-span-3 sm:col-span-3 text-right">
                         <div className="font-medium">{task.title}</div>
-                        <div className="text-xs text-muted-foreground sm:hidden">
+                        <div className="text-xs text-muted-foreground sm:hidden"  style={{ fontSize: '11px' }}>
                           {task.category} {task.targetWindow && <p>• {task.targetWindow}</p>}
                         </div>
                       </div>
                       <div className="col-span-1 sm:col-span-2 text-center hidden sm:block">{task.category}</div>
                       <div className="col-span-1 sm:col-span-2 text-center hidden sm:block">{task.targetWindow}</div>
-                      <div className="col-span-1 sm:col-span-2 text-center">
+                      <div className="col-span-2 sm:col-span-2 text-center">
                         <div className="w-full">
                           <StatusDropdown
                             value={assignment.status}
@@ -166,7 +166,7 @@ export function TaskTable({
                         {trainee?.name || '-'}
                       </div>
                       {/* Mobile notes and trainee row */}
-                      <div className="col-span-3 sm:hidden mt-3 space-y-3">
+                      <div className="col-span-4 sm:hidden mt-3 space-y-3">
                         <div>
                           <div className="text-xs text-muted-foreground mb-1">הערות:</div>
                           <NotesCell
