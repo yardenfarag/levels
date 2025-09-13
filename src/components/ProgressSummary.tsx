@@ -54,13 +54,6 @@ export function ProgressSummary({ assignments, tasks, currentUser, users }: Prog
             value={progressPercentage} 
             className="h-3"
           />
-          <div className="mt-2 text-xs text-muted-foreground">
-            {progressPercentage === 100 ? '🎉 הושלם בהצלחה!' :
-             progressPercentage >= 75 ? '🔥 כמעט שם!' :
-             progressPercentage >= 50 ? '💪 מחצית הדרך!' :
-             progressPercentage >= 25 ? '🚀 התחלה טובה!' :
-             '💪 בואו נתחיל!'}
-          </div>
         </div>
         <p className="text-sm text-muted-foreground text-center">
           {getProgressLabel()}
