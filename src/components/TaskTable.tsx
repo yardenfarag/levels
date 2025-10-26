@@ -32,7 +32,12 @@ export function TaskTable({
   // Get unique targetWindow values from tasks
   const sections = useMemo(() => {
     const uniqueWindows = [...new Set(tasks.map(task => task.targetWindow))];
-    return uniqueWindows.sort(); // You can customize sorting if needed
+    return uniqueWindows.sort((a, b) => {
+      // Put 'לא מוגדר' at the end
+      if (a === 'לא מוגדר' && b !== 'לא מוגדר') return 1;
+      if (a !== 'לא מוגדר' && b === 'לא מוגדר') return -1;
+      return a.localeCompare(b);
+    });
   }, [tasks]);
 
   // Helper function to get assignments for user
