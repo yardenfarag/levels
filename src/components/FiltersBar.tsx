@@ -14,24 +14,18 @@ interface FiltersBarProps {
 }
 
 export function FiltersBar({ filters, onFiltersChange, tasks }: FiltersBarProps) {
-  // Get unique categories and target windows from tasks
+  // Get unique categories from tasks
   const categories = Array.from(new Set(tasks.map(task => task.category))).sort();
-  const targetWindows = Array.from(new Set(tasks.map(task => task.targetWindow))).sort();
 
   const categoryOptions = [
     { value: 'all', label: 'כל הקטגוריות' },
     ...categories.map(cat => ({ value: cat, label: cat }))
   ];
 
-  const targetWindowOptions = [
-    { value: 'all', label: 'כל פרקי הזמן' },
-    ...targetWindows.map(tw => ({ value: tw, label: tw }))
-  ];
-
   return (
     <Card className="w-full border-2">
       <CardContent className="p-4 space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Search Input */}
           <div className="space-y-2">
             <Label htmlFor="search" className="text-sm font-medium flex items-center gap-1">
@@ -60,28 +54,6 @@ export function FiltersBar({ filters, onFiltersChange, tasks }: FiltersBarProps)
               </SelectTrigger>
               <SelectContent>
                 {categoryOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Target Window Filter */}
-          <div className="space-y-2">
-            <Label htmlFor="targetWindow" className="text-sm font-medium flex items-center gap-1">
-              ⏰ פרק זמן
-            </Label>
-            <Select
-              value={filters.targetWindow}
-              onValueChange={(value) => onFiltersChange({ targetWindow: value })}
-            >
-              <SelectTrigger id="targetWindow" className="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {targetWindowOptions.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}
                   </SelectItem>

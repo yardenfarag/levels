@@ -15,6 +15,7 @@ interface TaskTableProps {
   currentUser: User | null;
   filters: Filters;
   onUpdateAssignment: (assignmentId: string, updates: Partial<Assignment>) => void;
+  onSetFilters: (filters: Partial<Filters>) => void;
 }
 
 export function TaskTable({ 
@@ -23,9 +24,16 @@ export function TaskTable({
   users, 
   currentUser, 
   filters, 
-  onUpdateAssignment 
+  onUpdateAssignment,
+  onSetFilters
 }: TaskTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Get unique targetWindow values from tasks
+  const sections = useMemo(() => {
+    const uniqueWindows = [...new Set(tasks.map(task => task.targetWindow))];
+    return uniqueWindows.sort(); // You can customize sorting if needed
+  }, [tasks]);
 
   // Helper function to get assignments for user
   const getAssignmentsForUser = (taskId: string) => {
@@ -118,6 +126,31 @@ export function TaskTable({
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {/* Section Tabs */}
+        <div className="mb-4 -mx-4 px-4">
+          <div className="flex gap-2 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <Button
+              variant={filters.targetWindow === 'all' ? "default" : "outline"}
+              size="sm"
+              onClick={() => onSetFilters({ targetWindow: 'all' })}
+              className="whitespace-nowrap flex-shrink-0"
+            >
+              הכל
+            </Button>
+            {sections.map((section) => (
+              <Button
+                key={section}
+                variant={filters.targetWindow === section ? "default" : "outline"}
+                size="sm"
+                onClick={() => onSetFilters({ targetWindow: section })}
+                className="whitespace-nowrap flex-shrink-0"
+              >
+                {section}
+              </Button>
+            ))}
+          </div>
+        </div>
+
         <div id="task-table" className="overflow-x-auto">
           <div className="min-w-full">
             {/* Header */}

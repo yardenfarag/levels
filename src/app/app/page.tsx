@@ -155,6 +155,7 @@ export default function AppPage() {
             currentUser={currentUser}
             filters={filters}
             onUpdateAssignment={updateAssignment}
+            onSetFilters={setFilters}
           />
         </div>
 
