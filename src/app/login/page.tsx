@@ -54,7 +54,7 @@ export default function LoginPage() {
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
-          {users.filter((user) => user.id === 'u2').map((user) => (
+          {users.filter((user) => user.role === 'instructor').map((user) => (
             <Button
               key={user.id}
               variant="outline"
