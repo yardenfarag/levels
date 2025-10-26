@@ -224,28 +224,83 @@ export function TaskTable({
 
         {/* Pagination Controls */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-6">
+          <div className="flex items-center justify-center gap-1 sm:gap-2 mt-6 flex-wrap">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
               disabled={currentPage === 1}
+              className="text-xs sm:text-sm"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
             
-            <div className="flex items-center gap-1">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                <Button
-                  key={page}
-                  variant={currentPage === page ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setCurrentPage(page)}
-                  className="min-w-[32px]"
-                >
-                  {page}
-                </Button>
-              ))}
+            <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap justify-center">
+              {(() => {
+                const pages: number[] = [];
+                const maxVisible = 5;
+                
+                if (totalPages <= maxVisible) {
+                  // Show all pages if total is small
+                  for (let i = 1; i <= totalPages; i++) {
+                    pages.push(i);
+                  }
+                } else {
+                  // Always show first page
+                  pages.push(1);
+                  
+                  // Calculate range around current page
+                  let start = Math.max(2, currentPage - 1);
+                  let end = Math.min(totalPages - 1, currentPage + 1);
+                  
+                  // Adjust if we're near the beginning or end
+                  if (currentPage <= 3) {
+                    start = 2;
+                    end = 4;
+                  } else if (currentPage >= totalPages - 2) {
+                    start = totalPages - 3;
+                    end = totalPages - 1;
+                  }
+                  
+                  // Add pages with ellipsis where needed
+                  if (start > 2) {
+                    pages.push(-1); // -1 represents ellipsis
+                  }
+                  
+                  for (let i = start; i <= end; i++) {
+                    pages.push(i);
+                  }
+                  
+                  if (end < totalPages - 1) {
+                    pages.push(-1); // -1 represents ellipsis
+                  }
+                  
+                  // Always show last page
+                  pages.push(totalPages);
+                }
+                
+                return pages.map((page, index) => {
+                  if (page === -1) {
+                    return (
+                      <span key={`ellipsis-${index}`} className="px-1 text-muted-foreground text-xs">
+                        ...
+                      </span>
+                    );
+                  }
+                  
+                  return (
+                    <Button
+                      key={page}
+                      variant={currentPage === page ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setCurrentPage(page)}
+                      className="min-w-[28px] sm:min-w-[32px] text-xs sm:text-sm px-1 sm:px-2"
+                    >
+                      {page}
+                    </Button>
+                  );
+                });
+              })()}
             </div>
             
             <Button
@@ -253,6 +308,7 @@ export function TaskTable({
               size="sm"
               onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
               disabled={currentPage === totalPages}
+              className="text-xs sm:text-sm"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
