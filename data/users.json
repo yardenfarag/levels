@@ -1,4 +1,6 @@
 [
   {"id":"u1","name":"דנה","role":"trainee"},
-  {"id":"u2","name":"נועה","role":"instructor"}
+  {"id":"u2","name":"נועה","role":"instructor"},
+  {"id":"u3","name":"רוני","role":"instructor"},
+  {"id":"u4","name":"שני","role":"instructor"}
 ]
