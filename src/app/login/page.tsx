@@ -8,6 +8,8 @@ import { RoleBadge } from '@/components/RoleBadge';
 import { useStore } from '@/lib/store';
 import { User } from '@/lib/types';
 
+// LOGIN PAGE
+
 export default function LoginPage() {
   const router = useRouter();
   const { users, currentUser, setCurrentUser, loadData } = useStore();
